@@ -2,7 +2,10 @@ package Apps;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReprodutorMusical {
+import Enums.ReprodutorStatus;
+import Interfaces.AppReprodutorMusical;
+
+public class ReprodutorMusical implements AppReprodutorMusical{
     
     private List<String> listaMusicas = new ArrayList<>();
     private ReprodutorStatus reprodutorStatus = ReprodutorStatus.SEM_MUSICA;
@@ -20,6 +23,7 @@ public class ReprodutorMusical {
         return reprodutorStatus;
     }
 
+    @Override
     public void tocar() {
         if (ReprodutorStatus.PAUSADO == reprodutorStatus) {
             reprodutorStatus = ReprodutorStatus.REPRODUZINDO;
@@ -30,6 +34,7 @@ public class ReprodutorMusical {
         else System.out.println("Sem música");
     }
 
+    @Override
     public void pausar() {
         if (ReprodutorStatus.SEM_MUSICA == reprodutorStatus) {
             System.out.println("Sem música");
@@ -39,6 +44,7 @@ public class ReprodutorMusical {
         System.out.println("Pausado");
     }
 
+    @Override
     public void selecionarMusica(String musica) {
         for (String musicaLista: listaMusicas) {
             if (musicaLista == musica) {
@@ -49,8 +55,10 @@ public class ReprodutorMusical {
         System.out.println("Música selecionada: " + musicaAtual);
     }
 
+    @Override
     public void adicionarMusicaLista(String musica) {
         listaMusicas.add(musica);
+        reprodutorStatus = ReprodutorStatus.PAUSADO;
     }
 
 }
